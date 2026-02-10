@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
+import AdminStores from './pages/AdminStores';
 
 const DashboardPlaceholder = ({ role }: { role: string }) => {
   const { logout, user } = useAuth();
@@ -60,6 +61,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['ADMIN']}>
                 <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/stores"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN']}>
+                <AdminStores />
               </ProtectedRoute>
             }
           />
