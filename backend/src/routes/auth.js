@@ -5,14 +5,9 @@ import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
-/**
- * POST /api/auth/signup
- * Register a new user with USER role
- * Body: { name, email, password, address? }
- */
+// Signup endpoint
 router.post('/signup', async (req, res) => {
   try {
-    // Validate request body
     const validation = validate(signupSchema, req.body);
     
     if (!validation.success) {
@@ -25,7 +20,6 @@ router.post('/signup', async (req, res) => {
       });
     }
 
-    // Create user
     const user = await signup(validation.data);
 
     res.status(201).json({
@@ -53,14 +47,9 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-/**
- * POST /api/auth/login
- * Login user and get JWT token
- * Body: { email, password }
- */
+// Login endpoint
 router.post('/login', async (req, res) => {
   try {
-    // Validate request body
     const validation = validate(loginSchema, req.body);
     
     if (!validation.success) {
@@ -73,7 +62,6 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    // Login user
     const { email, password } = validation.data;
     const result = await login(email, password);
 
@@ -102,14 +90,9 @@ router.post('/login', async (req, res) => {
   }
 });
 
-/**
- * POST /api/auth/change-password
- * Change user's password (requires authentication)
- * Body: { currentPassword, newPassword }
- */
+// Change password - requires auth
 router.post('/change-password', authenticateToken, async (req, res) => {
   try {
-    // Validate request body
     const validation = validate(changePasswordSchema, req.body);
     
     if (!validation.success) {
@@ -122,7 +105,6 @@ router.post('/change-password', authenticateToken, async (req, res) => {
       });
     }
 
-    // Change password
     const { currentPassword, newPassword } = validation.data;
     const result = await changePassword(req.user.id, currentPassword, newPassword);
 

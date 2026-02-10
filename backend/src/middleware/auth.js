@@ -1,16 +1,8 @@
 import { verifyToken } from '../utils/jwt.js';
 
-/**
- * Middleware to authenticate JWT token from request headers
- * Extracts token from Authorization header (Bearer token)
- * Verifies token and attaches user info to req.user
- * @param {Request} req - Express request object
- * @param {Response} res - Express response object
- * @param {Function} next - Express next middleware function
- */
+// Middleware to check JWT token
 export const authenticateToken = (req, res, next) => {
   try {
-    // Get token from Authorization header
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
@@ -23,10 +15,10 @@ export const authenticateToken = (req, res, next) => {
       });
     }
 
-    // Verify token
+    // verify the token
     const decoded = verifyToken(token);
 
-    // Attach user info to request object
+    // attach user to request
     req.user = {
       id: decoded.id,
       email: decoded.email,
@@ -35,7 +27,7 @@ export const authenticateToken = (req, res, next) => {
 
     next();
   } catch (error) {
-    console.error('Authentication error:', error.message);
+    console.error('Auth error:', error.message);
     
     return res.status(401).json({
       error: {
