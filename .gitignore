@@ -37,6 +37,7 @@ backend/src/db/seed.sql
 
 # Misc
 *.tsbuildinfo
+HUMANIZATION_CHANGES.md
 
 # Kiro specs
 .kiro/
