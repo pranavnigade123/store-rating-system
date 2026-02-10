@@ -32,12 +32,9 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      console.log('Submitting signup:', formData);
       const response = await apiClient.post('/auth/signup', formData);
-      console.log('Signup response:', response);
       navigate('/login', { state: { message: 'Account created! Please login.' } });
     } catch (err: any) {
-      console.error('Signup error:', err);
       if (err.response?.data?.error?.details) {
         setErrors(err.response.data.error.details);
       } else {

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import apiClient from '../api/client';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
+// dashboard stats from backend
 interface DashboardStats {
   totalUsers: number;
   totalStores: number;
@@ -54,7 +55,7 @@ const AdminDashboard = () => {
         <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Total Users Card */}
+          {/* Users card */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -69,7 +70,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Total Stores Card */}
+          {/* Stores card */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -84,7 +85,7 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Total Ratings Card */}
+          {/* Ratings card */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between">
               <div>
