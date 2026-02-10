@@ -1,0 +1,31 @@
+{
+  "name": "store-rating-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Store Rating System",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:schema": "node scripts/runSchema.js",
+    "db:seed": "node scripts/runSeed.js",
+    "test:connection": "node scripts/testConnection.js"
+  },
+  "keywords": [
+    "express",
+    "postgresql",
+    "jwt",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.18.0",
+    "zod": "^4.3.6"
+  }
+}
