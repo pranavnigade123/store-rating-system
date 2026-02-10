@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
-// Password validation regex patterns
+// regex for password validation
 const uppercaseRegex = /[A-Z]/;
 const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
 
-// Signup schema (creates USER role only)
+// Signup schema - creates USER role
 export const signupSchema = z.object({
   name: z.string()
     .min(20, 'Name must be at least 20 characters')
@@ -21,7 +21,7 @@ export const signupSchema = z.object({
     .optional()
 });
 
-// Login schema
+// Login
 export const loginSchema = z.object({
   email: z.string()
     .email('Invalid email format'),
@@ -29,7 +29,7 @@ export const loginSchema = z.object({
     .min(1, 'Password is required')
 });
 
-// User creation schema (Admin can specify role)
+// Admin can create user with any role
 export const createUserSchema = z.object({
   name: z.string()
     .min(20, 'Name must be at least 20 characters')
@@ -49,7 +49,7 @@ export const createUserSchema = z.object({
   })
 });
 
-// Store creation schema
+// Store creation
 export const createStoreSchema = z.object({
   name: z.string()
     .min(20, 'Store name must be at least 20 characters')
@@ -62,17 +62,19 @@ export const createStoreSchema = z.object({
     .uuid('Invalid owner user ID format')
 });
 
-// Rating submission schema
+// Rating submission
 export const ratingSchema = z.object({
   storeId: z.string()
     .uuid('Invalid store ID format'),
-  rating: z.number()
-    .int('Rating must be an integer')
-    .min(1, 'Rating must be at least 1')
-    .max(5, 'Rating must not exceed 5')
+  rating: z.union([z.number(), z.string()])
+    .transform(val => typeof val === 'string' ? parseInt(val, 10) : val)
+    .pipe(z.number()
+      .int('Rating must be an integer')
+      .min(1, 'Rating must be at least 1')
+      .max(5, 'Rating must not exceed 5'))
 });
 
-// Change password schema
+// Change password
 export const changePasswordSchema = z.object({
   currentPassword: z.string()
     .min(1, 'Current password is required'),
@@ -83,7 +85,7 @@ export const changePasswordSchema = z.object({
     .regex(specialCharRegex, 'New password must contain at least one special character')
 });
 
-// Query parameters schema for pagination and filtering
+// Query params for pagination/filtering
 export const paginationSchema = z.object({
   page: z.string()
     .optional()
@@ -97,12 +99,7 @@ export const paginationSchema = z.object({
   role: z.enum(['ADMIN', 'USER', 'OWNER']).optional()
 });
 
-/**
- * Validate data against a schema and return formatted errors
- * @param {z.ZodSchema} schema - Zod schema to validate against
- * @param {Object} data - Data to validate
- * @returns {Object} { success: boolean, data?: any, errors?: Object }
- */
+// Validate helper function
 export const validate = (schema, data) => {
   try {
     const validatedData = schema.parse(data);
@@ -110,12 +107,16 @@ export const validate = (schema, data) => {
   } catch (error) {
     if (error instanceof z.ZodError) {
       const formattedErrors = {};
-      error.errors.forEach(err => {
-        const path = err.path.join('.');
-        formattedErrors[path] = err.message;
-      });
+      if (error.errors && Array.isArray(error.errors)) {
+        error.errors.forEach(err => {
+          const path = err.path.join('.');
+          formattedErrors[path] = err.message;
+        });
+      }
       return { success: false, errors: formattedErrors };
     }
-    return { success: false, errors: { general: 'Validation failed' } };
+    // non-Zod errors
+    console.error('Validation error:', error);
+    return { success: false, errors: { general: error.message || 'Validation failed' } };
   }
 };
