@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import apiClient from '../api/client';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
@@ -105,20 +106,20 @@ const AdminDashboard = () => {
         <div className="mt-8 bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a
-              href="/admin/users"
+            <Link
+              to="/admin/users"
               className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
             >
               <h3 className="font-semibold text-lg">Manage Users</h3>
               <p className="text-gray-600 text-sm mt-1">View, create, and manage user accounts</p>
-            </a>
-            <a
-              href="/admin/stores"
+            </Link>
+            <Link
+              to="/admin/stores"
               className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition"
             >
               <h3 className="font-semibold text-lg">Manage Stores</h3>
               <p className="text-gray-600 text-sm mt-1">View, create, and manage stores</p>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const response = await apiClient.post('/auth/signup', formData);
+      await apiClient.post('/auth/signup', formData);
       navigate('/login', { state: { message: 'Account created! Please login.' } });
     } catch (err: any) {
       if (err.response?.data?.error?.details) {
