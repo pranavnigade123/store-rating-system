@@ -161,9 +161,9 @@ const UserStores = () => {
   }
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Browse Stores</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">Browse Stores</h1>
 
         {/* Search */}
         <div className="bg-white rounded-lg shadow-md p-4 mb-6">
@@ -204,13 +204,13 @@ const UserStores = () => {
             description="Try adjusting your search query"
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {stores.map((store) => (
-              <div key={store.id} className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-bold mb-2">{store.name}</h3>
-                <p className="text-gray-600 text-sm mb-1">Owner: {store.owner_name}</p>
-                <p className="text-gray-600 text-sm mb-1">{store.email}</p>
-                <p className="text-gray-600 text-sm mb-4">{store.address}</p>
+              <div key={store.id} className="bg-white rounded-lg shadow-md p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold mb-2 break-words">{store.name}</h3>
+                <p className="text-gray-600 text-xs sm:text-sm mb-1">Owner: {store.owner_name}</p>
+                <p className="text-gray-600 text-xs sm:text-sm mb-1 break-all">{store.email}</p>
+                <p className="text-gray-600 text-xs sm:text-sm mb-4 break-words">{store.address}</p>
                 
                 {/* Average Rating Display */}
                 <div className="mb-4 pb-4 border-b border-gray-200">

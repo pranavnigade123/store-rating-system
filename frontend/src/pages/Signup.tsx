@@ -45,9 +45,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Create Account</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="bg-white p-6 sm:p-8 rounded-lg shadow w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6">Create Account</h2>
         
         <form onSubmit={handleSubmit}>
           <Input
@@ -100,7 +100,7 @@ const Signup = () => {
           />
 
           {apiError && (
-            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg">
+            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
               {apiError}
             </div>
           )}
@@ -110,9 +110,9 @@ const Signup = () => {
           </Button>
         </form>
 
-        <p className="mt-4 text-center text-gray-600">
+        <p className="mt-4 text-center text-sm sm:text-base text-gray-600">
           Already have an account?{' '}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <a href="/login" className="text-blue-600 hover:underline">
             Login
           </a>
         </p>
