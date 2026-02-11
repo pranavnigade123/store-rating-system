@@ -8,10 +8,8 @@ import { query } from '../db/pool.js';
 
 const router = express.Router();
 
-// All admin routes need auth + ADMIN role
 router.use(authenticateToken, authorize('ADMIN'));
 
-// Dashboard stats
 router.get('/dashboard', async (req, res) => {
   try {
     const usersCount = await query('SELECT COUNT(*) FROM users');
@@ -35,7 +33,6 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
-// Create user
 router.post('/users', async (req, res) => {
   try {
     const validation = validate(createUserSchema, req.body);
@@ -77,7 +74,6 @@ router.post('/users', async (req, res) => {
   }
 });
 
-// Get all users
 router.get('/users', async (req, res) => {
   try {
     const validation = validate(paginationSchema, req.query);
@@ -107,7 +103,6 @@ router.get('/users', async (req, res) => {
   }
 });
 
-// Get user by ID
 router.get('/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -136,7 +131,6 @@ router.get('/users/:id', async (req, res) => {
   }
 });
 
-// Create store
 router.post('/stores', async (req, res) => {
   try {
     const validation = validate(createStoreSchema, req.body);
@@ -196,7 +190,6 @@ router.post('/stores', async (req, res) => {
   }
 });
 
-// Get all stores
 router.get('/stores', async (req, res) => {
   try {
     const validation = validate(paginationSchema, req.query);

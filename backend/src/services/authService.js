@@ -2,12 +2,10 @@ import { query } from '../db/pool.js';
 import { hashPassword, comparePassword } from '../utils/bcrypt.js';
 import { generateToken } from '../utils/jwt.js';
 
-// User signup - creates USER role by default
 export const signup = async (userData) => {
   const { name, email, password, address } = userData;
 
   try {
-    // Check if user already exists
     const existingUser = await query(
       'SELECT id FROM users WHERE email = $1',
       [email]
@@ -17,10 +15,8 @@ export const signup = async (userData) => {
       throw new Error('Email already exists');
     }
 
-    // hash the password
     const passwordHash = await hashPassword(password);
 
-    // Insert user with USER role
     const result = await query(
       `INSERT INTO users (name, email, password_hash, address, role)
        VALUES ($1, $2, $3, $4, 'USER')
@@ -44,10 +40,8 @@ export const signup = async (userData) => {
   }
 };
 
-// User login
 export const login = async (email, password) => {
   try {
-    // find user by email
     const result = await query(
       'SELECT id, name, email, password_hash, role FROM users WHERE email = $1',
       [email]
@@ -59,14 +53,12 @@ export const login = async (email, password) => {
 
     const user = result.rows[0];
 
-    // verify password
     const isPasswordValid = await comparePassword(password, user.password_hash);
 
     if (!isPasswordValid) {
       throw new Error('Invalid email or password');
     }
 
-    // generate JWT token
     const token = generateToken({
       id: user.id,
       email: user.email,
@@ -88,10 +80,8 @@ export const login = async (email, password) => {
   }
 };
 
-// Change password
 export const changePassword = async (userId, currentPassword, newPassword) => {
   try {
-    // Get user's current password hash
     const result = await query(
       'SELECT password_hash FROM users WHERE id = $1',
       [userId]
@@ -103,17 +93,14 @@ export const changePassword = async (userId, currentPassword, newPassword) => {
 
     const user = result.rows[0];
 
-    // verify current password
     const isPasswordValid = await comparePassword(currentPassword, user.password_hash);
 
     if (!isPasswordValid) {
       throw new Error('Current password is incorrect');
     }
 
-    // hash new password
     const newPasswordHash = await hashPassword(newPassword);
 
-    // update password
     await query(
       'UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2',
       [newPasswordHash, userId]

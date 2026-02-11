@@ -1,119 +1,129 @@
--- Store Rating System Seed Data
--- This script creates demo users, stores, and ratings for testing
+-- Store Rating System - Realistic Seed Data
+-- Password for all accounts: Demo@123
 
--- Note: Passwords are hashed versions of the plaintext passwords shown in comments
--- All demo passwords follow the pattern: DemoPass123!
-
--- Clear existing data (in reverse order of dependencies)
+-- Clear existing data
 DELETE FROM ratings;
 DELETE FROM stores;
 DELETE FROM users;
 
--- Insert demo users
--- Password for all users: DemoPass123!
--- Hash generated with bcrypt (will be replaced by script)
-
--- System Administrator
+-- Admin Account
 INSERT INTO users (id, name, email, password_hash, address, role) VALUES
-('11111111-1111-1111-1111-111111111111', 
- 'System Administrator Demo Account', 
+('a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d', 
+ 'System Administrator Account', 
  'admin@storerating.com', 
- '$2b$10$PLACEHOLDER_HASH_ADMIN',
- '123 Admin Street, Admin City, AC 12345',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '123 Admin Street, Pune',
  'ADMIN');
 
--- Normal Users (can rate stores)
+-- Regular Users
 INSERT INTO users (id, name, email, password_hash, address, role) VALUES
-('22222222-2222-2222-2222-222222222222',
- 'John Smith Regular User Account',
- 'john.smith@example.com',
- '$2b$10$PLACEHOLDER_HASH_USER1',
- '456 User Avenue, User Town, UT 23456',
+('b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e',
+ 'Pranav Nigade Customer Account',
+ 'pranav.nigade@gmail.com',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '456 MG Road, Pune',
  'USER'),
-('33333333-3333-3333-3333-333333333333',
- 'Jane Doe Normal User Account Demo',
- 'jane.doe@example.com',
- '$2b$10$PLACEHOLDER_HASH_USER2',
- '789 Customer Lane, Customer City, CC 34567',
+('c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f',
+ 'Rahul Deshmukh User Account',
+ 'rahul.d@yahoo.com',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '789 FC Road, Pune',
  'USER'),
-('44444444-4444-4444-4444-444444444444',
- 'Bob Johnson Regular Customer User',
- 'bob.johnson@example.com',
- '$2b$10$PLACEHOLDER_HASH_USER3',
- '321 Buyer Boulevard, Buyer Town, BT 45678',
+('d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a',
+ 'Sneha Kulkarni Regular User',
+ 'sneha.k@outlook.com',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '321 Baner Road, Pune',
+ 'USER'),
+('e5f6a7b8-c9d0-4e5f-2a3b-4c5d6e7f8a9b',
+ 'Amit Patil Customer Account',
+ 'amit.patil@gmail.com',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '654 Kothrud, Pune',
  'USER');
 
 -- Store Owners
 INSERT INTO users (id, name, email, password_hash, address, role) VALUES
-('55555555-5555-5555-5555-555555555555',
- 'Alice Williams Store Owner Account',
- 'alice.williams@example.com',
- '$2b$10$PLACEHOLDER_HASH_OWNER1',
- '111 Owner Street, Owner City, OC 56789',
+('f6a7b8c9-d0e1-4f5a-3b4c-5d6e7f8a9b0c',
+ 'Pranav Nigade Business Owner',
+ 'pranav.nigade@business.com',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '111 Shivaji Nagar, Pune',
  'OWNER'),
-('66666666-6666-6666-6666-666666666666',
- 'Charlie Brown Business Owner Demo',
- 'charlie.brown@example.com',
- '$2b$10$PLACEHOLDER_HASH_OWNER2',
- '222 Business Road, Business Town, BT 67890',
+('a7b8c9d0-e1f2-4a5b-4c5d-6e7f8a9b0c1d',
+ 'Anjali Pawar Store Owner',
+ 'anjali.pawar@store.com',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '222 Deccan, Pune',
  'OWNER'),
-('77777777-7777-7777-7777-777777777777',
- 'Diana Prince Merchant Owner Account',
- 'diana.prince@example.com',
- '$2b$10$PLACEHOLDER_HASH_OWNER3',
- '333 Merchant Avenue, Merchant City, MC 78901',
+('b8c9d0e1-f2a3-4b5c-5d6e-7f8a9b0c1d2e',
+ 'Vikram Bhosale Shop Owner',
+ 'vikram.b@shop.com',
+ '$2b$10$rQJ5cKZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9YwZ8vX9Y',
+ '333 Hadapsar, Pune',
  'OWNER');
 
--- Insert demo stores
+-- Stores
 INSERT INTO stores (id, name, email, address, owner_user_id) VALUES
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
- 'The Best Coffee Shop in Downtown Area',
- 'contact@bestcoffee.com',
- '100 Main Street, Downtown, DT 10001',
- '55555555-5555-5555-5555-555555555555'),
-('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
- 'Super Fresh Grocery Store Market',
- 'info@superfresh.com',
- '200 Market Avenue, Uptown, UT 20002',
- '66666666-6666-6666-6666-666666666666'),
-('cccccccc-cccc-cccc-cccc-cccccccccccc',
- 'Tech Gadgets Electronics Store',
- 'support@techgadgets.com',
- '300 Tech Boulevard, Silicon Valley, SV 30003',
- '77777777-7777-7777-7777-777777777777'),
-('dddddddd-dddd-dddd-dddd-dddddddddddd',
- 'Cozy Bookstore Reading Corner',
- 'hello@cozybookstore.com',
- '400 Library Lane, Booktown, BT 40004',
- '55555555-5555-5555-5555-555555555555'),
-('eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee',
- 'Healthy Organic Food Market Store',
- 'contact@healthyorganic.com',
- '500 Green Street, Eco City, EC 50005',
- '66666666-6666-6666-6666-666666666666');
+('c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f',
+ 'Cafe Coffee Day Pune Branch',
+ 'hello@cafecoffeeday.com',
+ '123 MG Road, Pune',
+ 'f6a7b8c9-d0e1-4f5a-3b4c-5d6e7f8a9b0c'),
+('d0e1f2a3-b4c5-4d5e-7f8a-9b0c1d2e3f4a',
+ 'Tech Zone Electronics Store',
+ 'support@techzone.com',
+ '456 Hinjewadi, Pune',
+ 'f6a7b8c9-d0e1-4f5a-3b4c-5d6e7f8a9b0c'),
+('e1f2a3b4-c5d6-4e5f-8a9b-0c1d2e3f4a5b',
+ 'Organic Bazaar Fresh Market',
+ 'info@organicbazaar.com',
+ '789 Koregaon Park, Pune',
+ 'a7b8c9d0-e1f2-4a5b-4c5d-6e7f8a9b0c1d'),
+('f2a3b4c5-d6e7-4f5a-9b0c-1d2e3f4a5b6c',
+ 'Style Studio Fashion Boutique',
+ 'contact@stylestudio.com',
+ '321 FC Road, Pune',
+ 'a7b8c9d0-e1f2-4a5b-4c5d-6e7f8a9b0c1d'),
+('a3b4c5d6-e7f8-4a5b-0c1d-2e3f4a5b6c7d',
+ 'Kitab Ghar Book Store Pune',
+ 'books@kitabghar.com',
+ '654 Sadashiv Peth, Pune',
+ 'b8c9d0e1-f2a3-4b5c-5d6e-7f8a9b0c1d2e'),
+('b4c5d6e7-f8a9-4b5c-1d2e-3f4a5b6c7d8e',
+ 'Gold Gym Fitness Center Aundh',
+ 'join@goldgym.com',
+ '987 Aundh, Pune',
+ 'b8c9d0e1-f2a3-4b5c-5d6e-7f8a9b0c1d2e');
 
--- Insert demo ratings
--- Coffee Shop ratings (average: 4.33)
+-- Ratings
+-- Coffee House (avg: 4.67)
 INSERT INTO ratings (store_id, user_id, rating) VALUES
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '22222222-2222-2222-2222-222222222222', 5),
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '33333333-3333-3333-3333-333333333333', 4),
-('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', '44444444-4444-4444-4444-444444444444', 4);
+('c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e', 5),
+('c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f', 'c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f', 4),
+('c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f', 'd4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a', 5);
 
--- Grocery Store ratings (average: 4.67)
+-- Tech Haven (avg: 4.5)
 INSERT INTO ratings (store_id, user_id, rating) VALUES
-('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '22222222-2222-2222-2222-222222222222', 5),
-('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '33333333-3333-3333-3333-333333333333', 5),
-('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', '44444444-4444-4444-4444-444444444444', 4);
+('d0e1f2a3-b4c5-4d5e-7f8a-9b0c1d2e3f4a', 'c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f', 5),
+('d0e1f2a3-b4c5-4d5e-7f8a-9b0c1d2e3f4a', 'e5f6a7b8-c9d0-4e5f-2a3b-4c5d6e7f8a9b', 4);
 
--- Tech Store ratings (average: 3.5)
+-- Green Leaf (avg: 5.0)
 INSERT INTO ratings (store_id, user_id, rating) VALUES
-('cccccccc-cccc-cccc-cccc-cccccccccccc', '22222222-2222-2222-2222-222222222222', 3),
-('cccccccc-cccc-cccc-cccc-cccccccccccc', '33333333-3333-3333-3333-333333333333', 4);
+('e1f2a3b4-c5d6-4e5f-8a9b-0c1d2e3f4a5b', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e', 5),
+('e1f2a3b4-c5d6-4e5f-8a9b-0c1d2e3f4a5b', 'd4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a', 5);
 
--- Bookstore ratings (average: 5.0)
+-- Fashion Forward (avg: 4.5)
 INSERT INTO ratings (store_id, user_id, rating) VALUES
-('dddddddd-dddd-dddd-dddd-dddddddddddd', '22222222-2222-2222-2222-222222222222', 5),
-('dddddddd-dddd-dddd-dddd-dddddddddddd', '33333333-3333-3333-3333-333333333333', 5),
-('dddddddd-dddd-dddd-dddd-dddddddddddd', '44444444-4444-4444-4444-444444444444', 5);
+('f2a3b4c5-d6e7-4f5a-9b0c-1d2e3f4a5b6c', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e', 4),
+('f2a3b4c5-d6e7-4f5a-9b0c-1d2e3f4a5b6c', 'e5f6a7b8-c9d0-4e5f-2a3b-4c5d6e7f8a9b', 5);
 
--- Organic Market has no ratings yet (to test empty state)
+-- Book Nook (avg: 4.5)
+INSERT INTO ratings (store_id, user_id, rating) VALUES
+('a3b4c5d6-e7f8-4a5b-0c1d-2e3f4a5b6c7d', 'c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f', 5),
+('a3b4c5d6-e7f8-4a5b-0c1d-2e3f4a5b6c7d', 'd4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a', 4);
+
+-- Fitness First (avg: 4.5)
+INSERT INTO ratings (store_id, user_id, rating) VALUES
+('b4c5d6e7-f8a9-4b5c-1d2e-3f4a5b6c7d8e', 'c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f', 5),
+('b4c5d6e7-f8a9-4b5c-1d2e-3f4a5b6c7d8e', 'e5f6a7b8-c9d0-4e5f-2a3b-4c5d6e7f8a9b', 4);
