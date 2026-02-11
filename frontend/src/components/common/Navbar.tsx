@@ -17,27 +17,27 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-gray-800">Store Rating System</h1>
+            <h1 className="text-lg sm:text-xl font-bold text-gray-800">Store Rating System</h1>
             
-            {/* Navigation Links */}
-            <div className="ml-10 flex space-x-4">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex ml-6 lg:ml-10 space-x-2 lg:space-x-4">
               {isAdmin && (
                 <>
                   <Link
                     to="/admin/dashboard"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
                   >
                     Dashboard
                   </Link>
                   <Link
                     to="/admin/users"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
                   >
                     Users
                   </Link>
                   <Link
                     to="/admin/stores"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
                   >
                     Stores
                   </Link>
@@ -48,15 +48,15 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/user/stores"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
                   >
-                    Browse Stores
+                    Stores
                   </Link>
                   <Link
                     to="/user/change-password"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
                   >
-                    Change Password
+                    Password
                   </Link>
                 </>
               )}
@@ -65,34 +65,93 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/owner/dashboard"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
                   >
-                    My Store
+                    Dashboard
                   </Link>
                   <Link
                     to="/owner/change-password"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
                   >
-                    Change Password
+                    Password
                   </Link>
                 </>
               )}
             </div>
           </div>
 
-          {/* User Info & Logout */}
-          <div className="flex items-center space-x-4">
-            <div className="text-sm">
-              <p className="text-gray-700 font-medium">{user.name}</p>
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="text-sm hidden sm:block">
+              <p className="text-gray-700 font-medium truncate max-w-[120px] lg:max-w-none">{user.name}</p>
               <p className="text-gray-500 text-xs">{user.role}</p>
             </div>
             <button
               onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              className="bg-red-500 hover:bg-red-600 text-white px-3 sm:px-4 py-2 rounded text-sm font-medium"
             >
               Logout
             </button>
           </div>
+        </div>
+        
+        {/* Mobile Navigation */}
+        <div className="md:hidden pb-3 flex gap-2 overflow-x-auto">
+          {isAdmin && (
+            <>
+              <Link
+                to="/admin/dashboard"
+                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/admin/users"
+                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+              >
+                Users
+              </Link>
+              <Link
+                to="/admin/stores"
+                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+              >
+                Stores
+              </Link>
+            </>
+          )}
+          
+          {isUser && (
+            <>
+              <Link
+                to="/user/stores"
+                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+              >
+                Browse Stores
+              </Link>
+              <Link
+                to="/user/change-password"
+                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+              >
+                Change Password
+              </Link>
+            </>
+          )}
+          
+          {isOwner && (
+            <>
+              <Link
+                to="/owner/dashboard"
+                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+              >
+                My Store
+              </Link>
+              <Link
+                to="/owner/change-password"
+                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+              >
+                Change Password
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
