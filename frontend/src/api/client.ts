@@ -9,7 +9,7 @@ const apiClient = axios.create({
   },
 });
 
-// request interceptor to add token
+// add token to every request
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -18,17 +18,15 @@ apiClient.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// response interceptor for error handling
+// handle auth errors
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
+    // if token expired or invalid, logout user
     if (error.response?.status === 401) {
-      // token expired or invalid
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location.href = '/login';

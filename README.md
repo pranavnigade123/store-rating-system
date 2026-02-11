@@ -5,16 +5,18 @@ A full-stack store rating application with role-based access control. System Adm
 ## Tech Stack
 
 **Backend**
-- Node.js + Express
+- Node.js + Express (JavaScript)
 - PostgreSQL (Supabase)
 - JWT Authentication
 - Zod Validation
 
-**Frontend** (Coming Soon)
-- React + Vite
+**Frontend**
+- React + Vite (TypeScript)
 - React Router
 - Axios
 - Tailwind CSS
+
+**Note on Tech Choices**: Backend uses JavaScript for simplicity and faster development, while frontend uses TypeScript for better type safety in UI components.
 
 ## Setup
 

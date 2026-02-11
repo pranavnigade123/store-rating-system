@@ -26,8 +26,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
+  // check if user is already logged in when app loads
   useEffect(() => {
-    // load user from localStorage on mount
     const storedToken = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
     
@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setToken(newToken);
       setUser(newUser);
       
+      // save to localStorage so user stays logged in
       localStorage.setItem('token', newToken);
       localStorage.setItem('user', JSON.stringify(newUser));
     } catch (error) {

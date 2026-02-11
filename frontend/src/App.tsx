@@ -1,42 +1,15 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import Layout from './components/common/Layout';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
 import AdminStores from './pages/AdminStores';
-
-const DashboardPlaceholder = ({ role }: { role: string }) => {
-  const { logout, user } = useAuth();
-  
-  return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h1 className="text-2xl font-bold">Welcome, {user?.name}!</h1>
-              <p className="text-gray-600">Role: {user?.role}</p>
-            </div>
-            <button
-              onClick={() => {
-                logout();
-                window.location.href = '/login';
-              }}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-            >
-              Logout
-            </button>
-          </div>
-          <div className="text-center py-12">
-            <h2 className="text-xl text-gray-600">{role} Dashboard (Coming Soon)</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import UserStores from './pages/UserStores';
+import OwnerDashboard from './pages/OwnerDashboard';
+import ChangePassword from './pages/ChangePassword';
 
 function App() {
   return (
@@ -52,7 +25,9 @@ function App() {
             path="/admin/dashboard"
             element={
               <ProtectedRoute allowedRoles={['ADMIN']}>
-                <AdminDashboard />
+                <Layout>
+                  <AdminDashboard />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -60,7 +35,9 @@ function App() {
             path="/admin/users"
             element={
               <ProtectedRoute allowedRoles={['ADMIN']}>
-                <AdminUsers />
+                <Layout>
+                  <AdminUsers />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -68,7 +45,9 @@ function App() {
             path="/admin/stores"
             element={
               <ProtectedRoute allowedRoles={['ADMIN']}>
-                <AdminStores />
+                <Layout>
+                  <AdminStores />
+                </Layout>
               </ProtectedRoute>
             }
           />
@@ -83,20 +62,60 @@ function App() {
           
           {/* User routes */}
           <Route
+            path="/user/stores"
+            element={
+              <ProtectedRoute allowedRoles={['USER']}>
+                <Layout>
+                  <UserStores />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/change-password"
+            element={
+              <ProtectedRoute allowedRoles={['USER']}>
+                <Layout>
+                  <ChangePassword />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/user/*"
             element={
               <ProtectedRoute allowedRoles={['USER']}>
-                <DashboardPlaceholder role="User" />
+                <Navigate to="/user/stores" replace />
               </ProtectedRoute>
             }
           />
           
           {/* Owner routes */}
           <Route
+            path="/owner/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={['OWNER']}>
+                <Layout>
+                  <OwnerDashboard />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/owner/change-password"
+            element={
+              <ProtectedRoute allowedRoles={['OWNER']}>
+                <Layout>
+                  <ChangePassword />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/owner/*"
             element={
               <ProtectedRoute allowedRoles={['OWNER']}>
-                <DashboardPlaceholder role="Owner" />
+                <Navigate to="/owner/dashboard" replace />
               </ProtectedRoute>
             }
           />
