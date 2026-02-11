@@ -27,20 +27,5 @@ Thumbs.db
 # Testing
 coverage/
 
-# Project specific
-.kiro/
-backend/scripts/testConnection.js
-backend/scripts/testEndpoints.js
-backend/scripts/runSeed.js
-backend/src/db/seed.sql
-
 # Misc
 *.tsbuildinfo
-HUMANIZATION_CHANGES.md
-
-# Kiro specs and setup docs
-.kiro/
-GIT_SETUP.md
-SUPABASE_SETUP.md
-DEPLOYMENT.md
-AZURE_DEPLOYMENT.md

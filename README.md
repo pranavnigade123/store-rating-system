@@ -1,113 +1,114 @@
 # Store Rating System
 
-A full-stack store rating application with role-based access control. System Administrators can manage the platform, Normal Users can rate stores, and Store Owners can view their ratings.
+A web app where users can browse and rate stores. Built as part of a coding challenge to demonstrate full-stack development skills.
+
+🔗 **Live Demo**: [https://store-rating-app-roxiler-system-apgrd2gcg8byctf9.southindia-01.azurewebsites.net](https://store-rating-app-roxiler-system-apgrd2gcg8byctf9.southindia-01.azurewebsites.net)
+
+## Quick Start
+
+Try it out with these demo accounts:
+- **Admin**: admin@storerating.com / Demo@123
+- **User**: pranav.nigade@gmail.com / Demo@123  
+- **Owner**: pranav.nigade@business.com / Demo@123
+
+## What It Does
+
+Three types of users, each with their own dashboard:
+
+**Admin** - Manages the platform
+- Create users and stores
+- View stats (total users, stores, ratings)
+- Filter and search through data
+
+**User** - Rates stores
+- Browse all stores
+- Search by name or location
+- Submit ratings (1-5 stars)
+- Update their ratings anytime
+
+**Owner** - Tracks their store performance
+- See all customer reviews
+- View average rating
+- Monitor feedback
 
 ## Tech Stack
 
-**Backend**
-- Node.js + Express (JavaScript)
-- PostgreSQL (Supabase)
-- JWT Authentication
-- Zod Validation
+- **Backend**: Node.js + Express.js + PostgreSQL (Supabase)
+- **Frontend**: React + TypeScript + Tailwind CSS
+- **Auth**: JWT tokens
+- **Deployment**: Docker + Azure App Service
 
-**Frontend**
-- React + Vite (TypeScript)
-- React Router
-- Axios
-- Tailwind CSS
+## Local Setup
 
-**Note on Tech Choices**: Backend uses JavaScript for simplicity and faster development, while frontend uses TypeScript for better type safety in UI components.
-
-## Setup
-
-### Prerequisites
-- Node.js v18+
-- PostgreSQL database
-- npm
-
-### Installation
-
-1. Clone and install dependencies
+### Backend
 ```bash
-git clone <repository-url>
-cd store-rating-system/backend
+cd backend
 npm install
 ```
 
-2. Create `.env` file in backend directory
-```env
-DATABASE_URL=postgresql://user:password@host:port/database
-JWT_SECRET=your-secret-key
+Create `.env` file:
+```
+DATABASE_URL=your_postgres_connection_string
+JWT_SECRET=your_secret_key
 PORT=5000
-NODE_ENV=development
-FRONTEND_URL=http://localhost:5173
 ```
 
-3. Setup database
+Setup database:
 ```bash
 npm run db:schema
+npm run db:seed
 ```
 
-4. Start server
+Start server:
 ```bash
+npm start
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
 npm run dev
 ```
 
-Server runs at `http://localhost:5000`
-
-## API Endpoints
-
-Base URL: `http://localhost:5000/api`
-
-**Auth**
-- POST `/auth/signup` - Register user
-- POST `/auth/login` - Login
-- POST `/auth/change-password` - Change password
-
-**Admin** (requires ADMIN role)
-- GET `/admin/dashboard` - Platform stats
-- POST `/admin/users` - Create user
-- GET `/admin/users` - List users
-- GET `/admin/users/:id` - Get user
-- POST `/admin/stores` - Create store
-- GET `/admin/stores` - List stores
-
-**Stores** (requires USER role)
-- GET `/stores` - Browse stores
-- POST `/stores/:id/rating` - Submit rating
-- GET `/stores/:id/rating` - Get user's rating
-
-**Owner** (requires OWNER role)
-- GET `/owner/dashboard` - View store ratings
+The app will be running at http://localhost:5173
 
 ## Features
 
-**Admin**
-- Manage users and stores
-- View platform statistics
+- Clean, modern UI with orange/slate color scheme
+- Role-based access control
+- Real-time rating updates
+- Search and filter functionality
+- Responsive design
+- Form validations (name 20-60 chars, password 8-16 chars with uppercase + special char)
 
-**User**
-- Browse and search stores
-- Submit and update ratings (1-5 stars)
-- Change password
+## Database
 
-**Owner**
-- View store ratings
-- See customer feedback
+Three main tables:
+- **users** - Accounts with roles (ADMIN, USER, OWNER)
+- **stores** - Business listings linked to owners
+- **ratings** - User ratings for stores (1-5 scale)
 
-## Database Schema
+## Project Structure
 
-- **Users**: Accounts with roles (ADMIN, USER, OWNER)
-- **Stores**: Business entities with owners
-- **Ratings**: User ratings for stores (1-5)
+```
+backend/
+  src/
+    routes/      # API endpoints
+    services/    # Business logic
+    middleware/  # Auth & authorization
+    db/          # Database setup
+    
+frontend/
+  src/
+    pages/       # Main views
+    components/  # Reusable UI components
+    context/     # Auth state management
+```
 
-## Validation Rules
+## Notes
 
-- Name: 20-60 characters
-- Email: Valid format, unique
-- Password: 8-16 chars, 1 uppercase, 1 special character
-- Rating: Integer 1-5
-
-## License
-
-ISC
+- Backend uses JavaScript for simplicity
+- Frontend uses TypeScript for better type safety
+- Deployed as a single Docker container
+- Database hosted on Supabase
