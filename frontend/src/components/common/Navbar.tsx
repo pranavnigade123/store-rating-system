@@ -13,31 +13,38 @@ const Navbar = () => {
   if (!user) return null;
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white border-b border-slate-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <h1 className="text-lg sm:text-xl font-bold text-gray-800">Store Rating System</h1>
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center space-x-8">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+              </div>
+              <h1 className="text-lg font-bold text-slate-900">Store Rating</h1>
+            </div>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex ml-6 lg:ml-10 space-x-2 lg:space-x-4">
+            <div className="hidden md:flex space-x-1">
               {isAdmin && (
                 <>
                   <Link
                     to="/admin/dashboard"
-                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
+                    className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
                     Dashboard
                   </Link>
                   <Link
                     to="/admin/users"
-                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
+                    className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
                     Users
                   </Link>
                   <Link
                     to="/admin/stores"
-                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
+                    className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
                     Stores
                   </Link>
@@ -48,15 +55,15 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/user/stores"
-                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
+                    className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
                     Stores
                   </Link>
                   <Link
                     to="/user/change-password"
-                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
+                    className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
-                    Password
+                    Settings
                   </Link>
                 </>
               )}
@@ -65,29 +72,29 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/owner/dashboard"
-                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
+                    className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
                     Dashboard
                   </Link>
                   <Link
                     to="/owner/change-password"
-                    className="text-gray-700 hover:text-blue-600 px-2 lg:px-3 py-2 rounded text-sm font-medium"
+                    className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
-                    Password
+                    Settings
                   </Link>
                 </>
               )}
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-4">
             <div className="text-sm hidden sm:block">
-              <p className="text-gray-700 font-medium truncate max-w-[120px] lg:max-w-none">{user.name}</p>
-              <p className="text-gray-500 text-xs">{user.role}</p>
+              <p className="text-slate-900 font-semibold">{user.name}</p>
+              <p className="text-slate-500 text-xs">{user.role}</p>
             </div>
             <button
               onClick={handleLogout}
-              className="bg-red-500 hover:bg-red-600 text-white px-3 sm:px-4 py-2 rounded text-sm font-medium"
+              className="bg-slate-700 hover:bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Logout
             </button>
@@ -100,19 +107,19 @@ const Navbar = () => {
             <>
               <Link
                 to="/admin/dashboard"
-                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+                className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors"
               >
                 Dashboard
               </Link>
               <Link
                 to="/admin/users"
-                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+                className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors"
               >
                 Users
               </Link>
               <Link
                 to="/admin/stores"
-                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+                className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors"
               >
                 Stores
               </Link>
@@ -123,15 +130,15 @@ const Navbar = () => {
             <>
               <Link
                 to="/user/stores"
-                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+                className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors"
               >
-                Browse Stores
+                Stores
               </Link>
               <Link
                 to="/user/change-password"
-                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+                className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors"
               >
-                Change Password
+                Settings
               </Link>
             </>
           )}
@@ -140,15 +147,15 @@ const Navbar = () => {
             <>
               <Link
                 to="/owner/dashboard"
-                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+                className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors"
               >
-                My Store
+                Dashboard
               </Link>
               <Link
                 to="/owner/change-password"
-                className="text-gray-700 hover:text-blue-600 px-3 py-1 rounded text-sm whitespace-nowrap"
+                className="text-slate-700 hover:text-orange-600 hover:bg-orange-50 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors"
               >
-                Change Password
+                Settings
               </Link>
             </>
           )}

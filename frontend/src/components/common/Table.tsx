@@ -2,6 +2,7 @@ interface Column {
   key: string;
   label: string;
   sortable?: boolean;
+  width?: string;
 }
 
 interface PaginationInfo {
@@ -23,43 +24,45 @@ interface TableProps {
 
 const Table = ({ columns, data, onSort, sortBy, sortOrder, pagination, onPageChange }: TableProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-md">
+    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="min-w-full">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-slate-200">
+          <thead className="bg-slate-50">
             <tr>
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${
-                    column.sortable ? 'cursor-pointer hover:bg-gray-100' : ''
+                  style={{ width: column.width }}
+                  className={`px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider ${
+                    column.sortable ? 'cursor-pointer select-none' : ''
                   }`}
                   onClick={() => column.sortable && onSort?.(column.key)}
                 >
                   <div className="flex items-center gap-2">
                     {column.label}
-                    {/* show sort arrow if this column is sorted */}
                     {column.sortable && sortBy === column.key && (
-                      <span>{sortOrder === 'asc' ? '↑' : '↓'}</span>
+                      <span className="text-orange-500">{sortOrder === 'asc' ? '↑' : '↓'}</span>
                     )}
                   </div>
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-slate-200 bg-white">
             {data.length === 0 ? (
               <tr>
-                <td colSpan={columns.length} className="px-6 py-8 text-center text-gray-500">
+                <td colSpan={columns.length} className="px-4 py-12 text-center text-slate-500">
                   No data available
                 </td>
               </tr>
             ) : (
               data.map((row, index) => (
-                <tr key={index} className="hover:bg-gray-50">
+                <tr key={index} className="hover:bg-slate-50">
                   {columns.map((column) => (
-                    <td key={column.key} className="px-6 py-4 text-sm text-gray-900">
-                      {row[column.key]}
+                    <td key={column.key} className="px-4 py-3 text-sm text-slate-900 whitespace-nowrap">
+                      <div className="max-w-xs truncate" title={row[column.key]}>
+                        {row[column.key]}
+                      </div>
                     </td>
                   ))}
                 </tr>
@@ -69,24 +72,24 @@ const Table = ({ columns, data, onSort, sortBy, sortOrder, pagination, onPageCha
         </table>
       </div>
 
-      {/* pagination controls */}
+      {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-          <div className="text-sm text-gray-700">
-            Showing page {pagination.page} of {pagination.totalPages} ({pagination.total} total)
+        <div className="px-4 py-3 border-t border-slate-200 flex items-center justify-between bg-slate-50">
+          <div className="text-sm text-slate-600">
+            Page {pagination.page} of {pagination.totalPages} • {pagination.total} total
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => onPageChange?.(pagination.page - 1)}
               disabled={pagination.page === 1}
-              className="px-3 py-1 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              className="px-4 py-2 text-sm font-medium border border-slate-300 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed bg-white text-slate-700"
             >
               Previous
             </button>
             <button
               onClick={() => onPageChange?.(pagination.page + 1)}
               disabled={pagination.page === pagination.totalPages}
-              className="px-3 py-1 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+              className="px-4 py-2 text-sm font-medium border border-slate-300 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed bg-white text-slate-700"
             >
               Next
             </button>

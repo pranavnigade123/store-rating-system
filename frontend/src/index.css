@@ -1,6 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* Primary button - Orange */
+  .btn-primary {
+    @apply bg-orange-500 hover:bg-orange-600 text-white font-medium px-4 py-2.5 rounded-lg transition-colors;
+  }
+  
+  /* Secondary button - Slate */
+  .btn-secondary {
+    @apply bg-slate-700 hover:bg-slate-800 text-white font-medium px-4 py-2.5 rounded-lg transition-colors;
+  }
+  
+  /* Card */
+  .card {
+    @apply bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow;
+  }
+  
+  /* Input focus */
+  .input-focus {
+    @apply focus:ring-2 focus:ring-orange-500 focus:border-orange-500;
+  }
+}
 
 @keyframes slide-up {
   from {
