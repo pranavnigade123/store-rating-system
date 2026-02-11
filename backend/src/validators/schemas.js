@@ -65,7 +65,7 @@ export const createStoreSchema = z.object({
 // Rating submission
 export const ratingSchema = z.object({
   storeId: z.string()
-    .uuid('Invalid store ID format'),
+    .min(1, 'Store ID is required'),
   rating: z.union([z.number(), z.string()])
     .transform(val => typeof val === 'string' ? parseInt(val, 10) : val)
     .pipe(z.number()
