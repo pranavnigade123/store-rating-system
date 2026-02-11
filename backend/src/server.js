@@ -72,10 +72,13 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json(response);
 });
 
-app.listen(PORT, () => {
-  console.log(`✓ Server running on port ${PORT}`);
-  console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`✓ Health check: http://localhost:${PORT}/health`);
-});
+// only start server if not in serverless environment
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`✓ Server running on port ${PORT}`);
+    console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`✓ Health check: http://localhost:${PORT}/health`);
+  });
+}
 
 export default app;
