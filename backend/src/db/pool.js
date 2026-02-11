@@ -1,7 +1,13 @@
 import pg from 'pg';
+import dotenv from 'dotenv';
+
+// Load environment variables
+dotenv.config();
+
 const { Pool } = pg;
 
 // PostgreSQL connection pool
+console.log('DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'NOT SET');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
