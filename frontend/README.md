@@ -1,73 +1,109 @@
-# React + TypeScript + Vite
+# Store Rating System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript frontend for the Store Rating System with role-based dashboards.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 18 with TypeScript
+- Vite (build tool)
+- React Router (navigation)
+- Axios (API calls)
+- Tailwind CSS (styling)
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Install dependencies:
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Create `.env` file:
+```env
+VITE_API_URL=http://localhost:5000/api
 ```
+
+3. Start development server:
+```bash
+npm run dev
+```
+
+Frontend runs at: http://localhost:5173
+
+## Features
+
+### Authentication
+- Login/Signup pages
+- JWT token management
+- Auto-redirect based on user role
+- Protected routes
+
+### Admin Dashboard
+- View platform statistics (users, stores, ratings)
+- Manage users (create, view, filter by role)
+- Manage stores (create, view, search)
+- Sortable tables with pagination
+
+### User Dashboard
+- Browse all stores
+- Search stores by name/address
+- Submit ratings (1-5 stars)
+- Update existing ratings
+- Real-time rating updates
+
+### Owner Dashboard
+- View store information
+- See average rating
+- List of customer reviews
+
+### Common Features
+- Change password (for Users and Owners)
+- Responsive design
+- Loading states
+- Error handling
+- Toast notifications
+
+## Project Structure
+
+```
+src/
+├── api/
+│   └── client.ts          # Axios setup with interceptors
+├── components/
+│   └── common/            # Reusable components
+│       ├── Button.tsx
+│       ├── Input.tsx
+│       ├── Table.tsx
+│       ├── LoadingSpinner.tsx
+│       ├── EmptyState.tsx
+│       ├── Toast.tsx
+│       ├── Layout.tsx
+│       ├── Navbar.tsx
+│       └── ProtectedRoute.tsx
+├── context/
+│   └── AuthContext.tsx    # Auth state management
+├── pages/
+│   ├── Login.tsx
+│   ├── Signup.tsx
+│   ├── AdminDashboard.tsx
+│   ├── AdminUsers.tsx
+│   ├── AdminStores.tsx
+│   ├── UserStores.tsx
+│   ├── OwnerDashboard.tsx
+│   └── ChangePassword.tsx
+└── App.tsx                # Routes configuration
+```
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+Build output will be in `dist/` folder.
+
+## Notes
+
+- Backend must be running on port 5000
+- All API calls include JWT token automatically
+- 401 errors trigger automatic logout
+- Search has 500ms debounce to reduce API calls

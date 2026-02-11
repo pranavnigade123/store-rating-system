@@ -19,7 +19,6 @@ const Signup = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // clear error for this field
     if (errors[e.target.name]) {
       setErrors({ ...errors, [e.target.name]: '' });
     }
@@ -33,12 +32,12 @@ const Signup = () => {
 
     try {
       await apiClient.post('/auth/signup', formData);
-      navigate('/login', { state: { message: 'Account created! Please login.' } });
+      navigate('/login', { state: { message: 'Account created successfully! Please login with your credentials.' } });
     } catch (err: any) {
       if (err.response?.data?.error?.details) {
         setErrors(err.response.data.error.details);
       } else {
-        setApiError(err.response?.data?.error?.message || 'Signup failed');
+        setApiError(err.response?.data?.error?.message || 'Signup failed. Please try again.');
       }
     } finally {
       setLoading(false);
@@ -59,6 +58,8 @@ const Signup = () => {
             error={errors.name}
             required
             placeholder="Enter your full name (20-60 chars)"
+            disabled={loading}
+            autoComplete="name"
           />
 
           <Input
@@ -70,6 +71,8 @@ const Signup = () => {
             error={errors.email}
             required
             placeholder="your@email.com"
+            disabled={loading}
+            autoComplete="email"
           />
 
           <Input
@@ -81,6 +84,8 @@ const Signup = () => {
             error={errors.password}
             required
             placeholder="8-16 chars, 1 uppercase, 1 special"
+            disabled={loading}
+            autoComplete="new-password"
           />
 
           <Input
@@ -90,6 +95,8 @@ const Signup = () => {
             onChange={handleChange}
             error={errors.address}
             placeholder="Your address"
+            disabled={loading}
+            autoComplete="street-address"
           />
 
           {apiError && (

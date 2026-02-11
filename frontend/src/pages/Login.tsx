@@ -15,8 +15,8 @@ const Login = () => {
   const location = useLocation();
   const message = (location.state as any)?.message;
 
+  // redirect to dashboard if already logged in
   useEffect(() => {
-    // redirect if already logged in
     if (isAuthenticated && user) {
       if (user.role === 'ADMIN') {
         navigate('/admin/dashboard');
@@ -35,9 +35,10 @@ const Login = () => {
 
     try {
       await login(email, password);
-      // redirect will happen in useEffect after user state updates
     } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Login failed');
+      const errorMsg = err.response?.data?.error?.message || 'Login failed. Please check your credentials.';
+      setError(errorMsg);
+      setPassword(''); // clear password for security
     } finally {
       setLoading(false);
     }
@@ -61,6 +62,8 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            autoComplete="email"
+            disabled={loading}
           />
 
           <Input
@@ -69,6 +72,8 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            autoComplete="current-password"
+            disabled={loading}
           />
 
           {error && (
